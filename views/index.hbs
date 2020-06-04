@@ -1,0 +1,43 @@
+<h2>Notifications page</h2>
+
+{{#if notifications.length}}
+<ul>
+  {{#each notifications}}
+  <li class="notification">
+    <form action="/activate" method="POST">
+      <label>
+        {{#if activated}}
+          <input type="checkbox" checked name="activated">
+          <span class="small">Tap to inactivate notification</span>
+          <span>{{title}}</span>
+        {{else}}
+          <input type="checkbox" name="activated">
+          <span class="small">Tap to activate notification</span>
+          <span class="activated">{{title}}</span>
+        {{/if}}
+        <div style="display: flex; align-items: center">
+          <div style="display: flex; margin-right: 15px; align-items: center">
+            <label for="assigned">Assign to:</label>
+            <select name="assigned" id="assigned">
+              {{#select assigned}}
+                <option value="0">Valentin</option>
+                <option value="1">Oleg</option>
+                <option value="2">Vic</option>
+                <option value="3">Artem</option>
+              {{/select}}
+            </select>
+          </div>
+          <input type="hidden" value="{{_id}}" name="id">
+          <button class="btn btn-small" type="submit">Save</button>
+        </div>
+      </label>
+    </form>
+    <form action="/delete/{{_id}}" method="POST">
+      <button class="btn btn-small red" type="submit">Delete</button>
+    </form>
+  </li>
+  {{/each}}
+</ul>
+{{else}}
+<p>Please create a new notification</p>
+{{/if}}
